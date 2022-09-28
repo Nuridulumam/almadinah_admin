@@ -1,26 +1,19 @@
-import { lazy, Suspense } from "react";
-import { BrowserRouter, Route, Routes as ReactRoutes } from "react-router-dom";
-import DefaultLayout from "./layouts/MainLayout";
-import Home from "./pages/Home";
+import { Route, Routes as ReactRoutes } from "react-router-dom";
 
-const Tasks = lazy(() => import("./pages/Tasks"));
+import Login from "./pages/auth"
+import NotFound from "./pages/errors/notFound";
+import Dashboard from "./pages/dashboard"
+
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 export default function Routes() {
   return (
-    <BrowserRouter>
-      <ReactRoutes>
-        <Route path="/" element={<DefaultLayout />}>
-          <Route index element={<Home />} />
-          <Route
-            path="tasks"
-            element={
-              <Suspense fallback={<></>}>
-                <Tasks />
-              </Suspense>
-            }
-          />
-        </Route>
-      </ReactRoutes>
-    </BrowserRouter>
+    <ReactRoutes>
+      <Route path={"/"} element={<Login />} />
+      <Route element={<PrivateRoutes/>}>
+        <Route path={"/dashboard"} element={<Dashboard />}/>
+        <Route path={"*"} element={<NotFound /> }/>
+      </Route>
+    </ReactRoutes>
   );
 }

@@ -1,23 +1,17 @@
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { Flex } from "@chakra-ui/react";
 
 export default function DefaultLayout() {
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "2rem",
-          margin: "1rem auto",
-          justifyContent: "center",
-        }}
+      <Flex
+        direction="column"
+        align="center"
+        maxW={{base: "auto", xl: "100%" }}
+        m="0 auto"
       >
-        <Link to="/">Home</Link>
-        <Link to="/tasks">Tasks</Link>
-      </div>
-      <hr />
-
-      <Outlet />
+        <Outlet />
+      </Flex>
     </>
   );
 }
