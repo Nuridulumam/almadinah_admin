@@ -1,9 +1,10 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import  SimpleSidebar  from "../layouts/MainLayout"
 
 const PrivateRoutes = () => {
   let auth = {token: true}
   return (
-    auth.token ? <Outlet/> : <Navigate to={"/"} />
+      auth.token ? <SimpleSidebar></SimpleSidebar> : <Navigate to={"/"} />
   );
 };
 
