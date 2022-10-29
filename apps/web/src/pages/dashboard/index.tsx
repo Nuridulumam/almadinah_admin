@@ -1,10 +1,9 @@
 import React from "react";
+import {Heading} from "@chakra-ui/react";
 
 const Dashboard = () => {
   return (
-    <div>
-      Hello i'm dashboard
-    </div>
+    <Heading color={'blackAlpha.700'}>Dashboard</Heading>
   );
 };
 

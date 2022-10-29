@@ -14,7 +14,8 @@ import {
     useDisclosure,
     BoxProps,
     FlexProps,
-    Image, Divider
+    Image,
+    Divider,
 } from '@chakra-ui/react';
 import {
     FiUsers,
@@ -34,20 +35,21 @@ import Logo from '../assets/logo.svg';
 interface LinkItemProps {
     name: string;
     icon: IconType;
+    url: string;
 }
 const LinkItems: Array<LinkItemProps> = [
-    { name: 'Dashboard', icon: FiGrid },
+    { name: 'Dashboard', icon: FiGrid, url: "/dashboard"},
     //*user-pendaftaran
-    { name: 'Beranda', icon: FiGrid},
-    { name: 'Informasi Pendaftaran', icon: HiOutlineInformationCircle},
-    { name: 'Formulir Pendaftaran', icon: TiDocumentText},
-    { name: 'Cetak Bukti Pendaftaran', icon: FaPrint},
+    { name: 'Beranda', icon: FiGrid, url: "/beranda"},
+    { name: 'Informasi Pendaftaran', icon: HiOutlineInformationCircle, url: ""},
+    { name: 'Formulir Pendaftaran', icon: TiDocumentText, url: ""},
+    { name: 'Cetak Bukti Pendaftaran', icon: FaPrint, url: ""},
     //*admin-pendaftaran
-    { name: 'Calon Santri', icon: FiUsers },
-    { name: 'Pendaftaran SMA', icon: FaUser },
-    { name: 'Pendaftaran SMP', icon: FaUser },
-    { name: 'Pembayaran', icon: FaMoneyCheck },
-    { name: 'Manajemen', icon: FiSettings },
+    { name: 'Calon Santri', icon: FiUsers, url: "/santri" },
+    { name: 'Pendaftaran SMA', icon: FaUser, url: "" },
+    { name: 'Pendaftaran SMP', icon: FaUser, url: "" },
+    { name: 'Pembayaran', icon: FaMoneyCheck, url: "" },
+    { name: 'Manajemen', icon: FiSettings, url: "" },
 ];
 
 export default function SimpleSidebar() {
@@ -108,7 +110,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
             {LinkItems.map((link) => (
-                <NavItem key={link.name} icon={link.icon}>
+                <NavItem key={link.name} icon={link.icon} url={link.url}>
                     {link.name}
                 </NavItem>
             ))}
@@ -118,10 +120,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 
 interface NavItemProps extends FlexProps {
     icon: IconType;
+    url: string;
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, children, url }: NavItemProps) => {
     return (
-        <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+        <Link href={url} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
             <Flex
                 align="center"
                 p="4"
@@ -130,10 +133,9 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
                 role="group"
                 cursor="pointer"
                 _hover={{
-                    bg: 'green.400',
+                    bg: 'teal.400',
                     color: 'white',
-                }}
-                {...rest}>
+                }}>
                 {icon && (
                     <Icon
                         mr="4"
