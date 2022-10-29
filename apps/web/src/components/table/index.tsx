@@ -32,8 +32,8 @@ export function DataTable<Data extends object>({
     });
 
     return (
-        <Table>
-            <Thead bgColor={'whitesmoke'} borderColor={'teal.400'} borderBottomWidth={'1.5px'}>
+        <Table borderRadius={'1rem'} shadow={'lg'}>
+            <Thead borderColor={'teal.400'} borderBottomWidth={'1.1px'} borderTopWidth={'1.1px'}>
                 {table.getHeaderGroups().map((headerGroup) => (
                     <Tr key={headerGroup.id}>
                         {headerGroup.headers.map((header) => {

@@ -26,11 +26,11 @@ import {
     HiOutlineInformationCircle,
     TiDocumentText,
     FaPrint,
-    FaUser
+    FaUser, FiLogOut
 } from 'react-icons/all';
 import { IconType } from 'react-icons';
 
-import Logo from '../assets/logo.svg';
+import Logo from '../assets/al-madinah-rbg.svg';
 
 interface LinkItemProps {
     name: string;
@@ -55,7 +55,7 @@ const LinkItems: Array<LinkItemProps> = [
 export default function SimpleSidebar() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
-        <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+        <Box minH="100vh" bg={useColorModeValue('white', 'gray.900')}>
             <SidebarContent
                 onClose={() => onClose}
                 display={{ base: 'none', md: 'block' }}
@@ -74,7 +74,7 @@ export default function SimpleSidebar() {
             </Drawer>
             {/* mobilenav */}
             <MobileNav display={{ base: 'flex', md: 'none' }} onOpen={onOpen} />
-            <Box ml={{ base: 0, md: 60 }} p="4">
+            <Box ml={{ base: 0, md: 60 }}>
                 <Outlet/>
             </Box>
         </Box>
@@ -88,12 +88,24 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     return (
         <Box
-            bg={useColorModeValue('white', 'gray.900')}
+            bg={useColorModeValue('teal.500', 'teal.900')}
+            color={useColorModeValue('white', 'white.900')}
             borderRight="1px"
             borderRightColor={useColorModeValue('gray.200', 'gray.700')}
             w={{ base: 'full', md: 60 }}
             pos="fixed"
             h="full"
+            overflowY={'auto'}
+            sx={{
+                '&::-webkit-scrollbar': {
+                    width: '0.6rem',
+                    borderRadius: '8px',
+                    backgroundColor: `rgba(0, 0, 0, 0.05)`,
+                },
+                '&::-webkit-scrollbar-thumb': {
+                    backgroundColor: `rgba(0, 0, 0, 0.05)`,
+                },
+            }}
             {...rest}>
             <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
                 <Image
@@ -102,7 +114,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                     src={Logo}
                     alt='logo-almadinah'
                 />
-                <Divider orientation={'vertical'} height={'50%'} borderColor={'green'}/>
+                <Divider orientation={'vertical'} height={'50%'} borderColor={'white'}/>
                 <Text
                     fontWeight={700}
                     fontSize={20}
@@ -114,6 +126,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                     {link.name}
                 </NavItem>
             ))}
+            <Box position={'sticky'} bottom={'0'}>
+                <NavItem icon={FiLogOut} url={"/"}>{"Logout"}</NavItem>
+            </Box>
         </Box>
     );
 };
@@ -128,14 +143,15 @@ const NavItem = ({ icon, children, url }: NavItemProps) => {
             <Flex
                 align="center"
                 p="4"
-                mx="4"
-                borderRadius="lg"
+                mx={icon === FiLogOut ? 0 : 4}
+                borderRadius={icon === FiLogOut ? "" : "lg"}
                 role="group"
                 cursor="pointer"
                 _hover={{
-                    bg: 'teal.400',
+                    bg: icon === FiLogOut ? "" : "teal.400",
                     color: 'white',
-                }}>
+                }}
+                bgColor={icon === FiLogOut ? 'red.500' : ''}>
                 {icon && (
                     <Icon
                         mr="4"

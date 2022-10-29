@@ -1,55 +1,48 @@
-import React from 'react';
+import {useEffect, useState} from 'react';
 import {Box, Button, Flex, Heading, IconButton, Menu, MenuButton, MenuItem, MenuList} from "@chakra-ui/react";
 import {BsThreeDots, FiFilter} from "react-icons/all";
 import {DataTable} from "../../components/table";
 import {createColumnHelper} from "@tanstack/react-table";
+import {connect, useDispatch} from "react-redux";
+import monevSustainable from "./actions_santri";
 
 const Santri = () => {
-    const columnHelper = createColumnHelper<UnitConversion>();
+    const dispatch = useDispatch();
+    const [data, setData] = useState([]);
 
-    type UnitConversion = {
-        fromUnit: string;
-        toUnit: string;
-        address: string;
-    };
+    const handleRefresh = () => {
+        new Promise((resolve) => {
+            const param = {
+                Page:  1,
+                Length: 10,
+                ProgramType: "Sustainable",
+            };
+        dispatch(monevSustainable.get(param, resolve));
+        }).then((res) => {
+            setData(res?.data);
+        })
+    }
 
-    const data: UnitConversion[] = [
-        {
-            fromUnit: "inches",
-            toUnit: "millimetres (mm)",
-            address: "Jombang"
-        },
-        {
-            fromUnit: "feet",
-            toUnit: "centimetres (cm)",
-            address: "Jombang"
-        },
-        {
-            fromUnit: "yards",
-            toUnit: "metres (m)",
-            address: "Jombang"
-        }
-    ];
+    useEffect(() => {
+       handleRefresh();
+    }, []);
 
+    const columnHelper = createColumnHelper();
     const columns = [
-        columnHelper.accessor("fromUnit", {
-            cell: (info) => info.getValue(),
+        columnHelper.accessor("no", {
             header: "NO"
         }),
-        columnHelper.accessor("toUnit", {
-            cell: (info) => info.getValue(),
+        columnHelper.accessor("programType", {
             header: "Nama Lengkap"
         }),
-        columnHelper.accessor("address", {
-            cell: (info) => info.getValue(),
+        columnHelper.accessor("proposalNumber", {
             header: "Alamat"
         }),
-        columnHelper.accessor("address", {
-            cell: (info) => info.getValue(),
+        columnHelper.accessor("proposalType", {
             header: "Alamat"
         }),
-        columnHelper.accessor("address", {
-            cell: (info) => {
+        columnHelper.accessor("action", {
+            cell: (row) => {
                 return (
                     <Menu>
                         <MenuButton
@@ -69,13 +62,7 @@ const Santri = () => {
     ];
 
     return (
-        <Box
-            id="table"
-            p={'2rem'}
-            bg={'whiteAlpha.700'}
-            borderBottomRadius={'1rem'}
-            boxShadow={'lg'}
-        >
+        <Box id="table" p={'2rem'}>
             <Flex id="Header" pb={'2.5rem'} flexDir={'row'} justifyContent={'space-between'}>
                 <Heading>Santri</Heading>
                 <Button
@@ -91,4 +78,12 @@ const Santri = () => {
     );
 };
 
-export default Santri;
+const mapStateToProps = () => {
+    return { };
+};
+
+const mapDispatchToProps = () => {
+    return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Santri);
