@@ -49,7 +49,7 @@ const LinkItems: Array<LinkItemProps> = [
     { name: 'Pendaftaran SMA', icon: FaUser, url: "" },
     { name: 'Pendaftaran SMP', icon: FaUser, url: "" },
     { name: 'Pembayaran', icon: FaMoneyCheck, url: "" },
-    { name: 'Manajemen', icon: FiSettings, url: "" },
+    { name: 'Manajemen', icon: FiSettings, url: "/manajemen" },
 ];
 
 export default function SimpleSidebar() {
@@ -103,7 +103,8 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                     backgroundColor: `rgba(0, 0, 0, 0.05)`,
                 },
                 '&::-webkit-scrollbar-thumb': {
-                    backgroundColor: `rgba(0, 0, 0, 0.05)`,
+                    borderRadius: '8px',
+                    backgroundColor: `rgba(255, 255, 255, 0.7)`,
                 },
             }}
             {...rest}>

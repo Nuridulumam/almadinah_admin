@@ -1,47 +1,29 @@
 import {useEffect, useState} from 'react';
 import {Box, Button, Flex, Heading, IconButton, Menu, MenuButton, MenuItem, MenuList} from "@chakra-ui/react";
 import {BsThreeDots, FiFilter} from "react-icons/all";
-import {DataTable} from "../../components/table";
+import {DataTable} from "../../../components/table";
 import {createColumnHelper} from "@tanstack/react-table";
 import {connect, useDispatch} from "react-redux";
-import monevSustainable from "./actions_santri";
 
-const Santri = () => {
+const Manajemen_Admin = () => {
     const dispatch = useDispatch();
     const [data, setData] = useState([]);
 
-    const handleRefresh = () => {
-        new Promise((resolve) => {
-            const param = {
-                Page:  1,
-                Length: 10,
-                ProgramType: "Sustainable",
-            };
-        dispatch(monevSustainable.get(param, resolve));
-        }).then((res) => {
-            setData(res?.data);
-        })
-    }
-
-    useEffect(() => {
-       handleRefresh();
-    }, []);
-
-    const columnSantri = createColumnHelper();
+    const colManajemenAdmin = createColumnHelper();
     const columns = [
-        columnSantri.accessor("no", {
+        colManajemenAdmin.accessor("no", {
             header: "NO"
         }),
-        columnSantri.accessor("programType", {
+        colManajemenAdmin.accessor("programType", {
             header: "Nama Lengkap"
         }),
-        columnSantri.accessor("proposalNumber", {
+        colManajemenAdmin.accessor("proposalNumber", {
             header: "Alamat"
         }),
-        columnSantri.accessor("proposalType", {
+        colManajemenAdmin.accessor("proposalType", {
             header: "Alamat"
         }),
-        columnSantri.accessor("action", {
+        colManajemenAdmin.accessor("action", {
             cell: (row) => {
                 return (
                     <Menu>
@@ -64,7 +46,7 @@ const Santri = () => {
     return (
         <Box id="table" p={'2rem'}>
             <Flex id="Header" pb={'2.5rem'} flexDir={'row'} justifyContent={'space-between'}>
-                <Heading>Santri</Heading>
+                <Heading>Admin</Heading>
                 <Button
                     leftIcon={<FiFilter />}
                     borderRadius={'100'}
@@ -86,4 +68,4 @@ const mapDispatchToProps = () => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Santri);
+export default connect(mapStateToProps, mapDispatchToProps)(Manajemen_Admin);

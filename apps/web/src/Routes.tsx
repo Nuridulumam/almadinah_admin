@@ -4,6 +4,7 @@ import Login from "./pages/auth"
 import NotFound from "./pages/errors/notFound";
 import Dashboard from "./pages/dashboard"
 import Santri from "./pages/santri";
+import Management from "./pages/management";
 
 import PrivateRoutes from "./utils/PrivateRoutes";
 
@@ -14,6 +15,7 @@ export default function Routes() {
       <Route element={<PrivateRoutes/>}>
         <Route path={"/dashboard"} element={<Dashboard />}/>
         <Route path={"/santri"} element={<Santri />}/>
+        <Route path={"/manajemen"} element={<Management />}/>
         <Route path={"*"} element={<NotFound /> }/>
       </Route>
     </ReactRoutes>
